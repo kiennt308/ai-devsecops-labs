@@ -1,0 +1,16 @@
+apiVersion: orderflow.devsecops/v1
+kind: FalcoRuntimeConfig
+metadata:
+  name: orderflow-falco-v045-modern-ebpf
+  owner: "Kien Nguyen"
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  falco_version: "v0.45.2"
+  engine:
+    kind: "modern_ebpf"
+  legacy_grpc_server_enabled: false
+  dry_run_validated: true
+  reload:
+    unix_socket_protected: true
+    endpoint: "GET /reload"

@@ -1,0 +1,52 @@
+apiVersion: policies.kyverno.io/v1
+kind: ImageValidatingPolicy
+metadata:
+  name: verify-orderflow-cosign-v3-aibom
+  annotations:
+    policies.kyverno.io/owner: "Kien Nguyen"
+spec:
+  validationActions:
+    - Deny
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["pods"]
+  verifyImages:
+    - imageReferences:
+        - "registry.orderflow.internal/orderflow-*"
+      useBundleFormat: true
+      attestations:
+        - name: slsa-v12-provenance
+          type: "https://slsa.dev/provenance/v1"
+        - name: cyclonedx-17-aibom
+          type: "https://cyclonedx.org/bom"
+  validations:
+    - expression: >-
+        images.containers.all(c, c.image.contains('@sha256:'))
+      message: "All OrderFlow images must use immutable @sha256: digests"
+---
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-orderflow-aibom-labels
+  annotations:
+    policies.kyverno.io/owner: "Kien Nguyen"
+spec:
+  validationActions:
+    - Deny
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["pods"]
+  validations:
+    - expression: >-
+        has(object.metadata.labels) &&
+        'orderflow.io/aibom-digest' in object.metadata.labels &&
+        object.metadata.labels['orderflow.io/aibom-digest'].startsWith(
+          'sha256:'
+        )
+      message: "Pod must declare orderflow.io/aibom-digest sha256 label"

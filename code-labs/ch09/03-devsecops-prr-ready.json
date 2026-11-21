@@ -1,0 +1,123 @@
+{
+  "apiVersion": "orderflow.devsecops/v1",
+  "kind": "DevSecOpsPRRAssessment",
+  "metadata": {
+    "name": "orderflow-devsecops-prr-20-ready",
+    "owner": "Kien Nguyen"
+  },
+  "spec": {
+    "author": "Kien Nguyen",
+    "repository": "https://github.com/kiennt308/ai-devsecops-labs",
+    "score_passed": 20,
+    "total_checks": 20,
+    "ocsf_classes": [
+      1007,
+      2002,
+      2003,
+      2004
+    ],
+    "purple_team_validated": true,
+    "prr_checks": [
+      {
+        "id": "PRR-01",
+        "control": "EPSS v4 scoring active",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-02",
+        "control": "CISA KEV floor enforced",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-03",
+        "control": "Call-graph reachability",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-04",
+        "control": "OpenVEX v0.2.0 TTL",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-05",
+        "control": "Sandbox regression proof",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-06",
+        "control": "HITL PR gate (no auto)",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-07",
+        "control": "SLSA v1.2 Build+Source",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-08",
+        "control": "Cosign v3.1.4 .bundle",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-09",
+        "control": "Minimal distroless base",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-10",
+        "control": "CycloneDX v1.7 AI-BOM",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-11",
+        "control": "SPDX v3.0.1 AI profile",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-12",
+        "control": "Kyverno v1.19 native CEL",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-13",
+        "control": "Conftest v0.71.1 rego.v1",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-14",
+        "control": "Checkov CKV_AWS_393 OIDC",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-15",
+        "control": "Checkov CKV_AWS_304 90d",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-16",
+        "control": "Prowler CIS v8.1 MCP PR",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-17",
+        "control": "Falco v0.45.2 modern_ebpf",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-18",
+        "control": "Tetragon v1.8.0 Sigkill",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-19",
+        "control": "OCSF 1007/2002/2003/2004",
+        "status": "PASS"
+      },
+      {
+        "id": "PRR-20",
+        "control": "10 Purple-Team drills",
+        "status": "PASS"
+      }
+    ]
+  }
+}

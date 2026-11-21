@@ -1,0 +1,14 @@
+apiVersion: orderflow.devsecops/v1
+kind: SupplyChainProvenancePolicy
+metadata:
+  name: legacy-slsa-v02-cosign-v2-policy
+  owner: legacy-release-eng
+spec:
+  slsa:
+    spec_version: "0.2"
+    build_level: 1
+  cosign:
+    version: "v2.0.0"
+    use_bundle_format: false
+  base_image:
+    minimal_hardened: false

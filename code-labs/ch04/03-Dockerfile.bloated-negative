@@ -1,0 +1,6 @@
+FROM ubuntu:latest
+USER root
+ADD https://example.com/tool.tgz /tmp/
+RUN apt-get update && apt-get install -y curl vim sudo
+ENV AWS_SECRET_ACCESS_KEY=insecure_demo_only_not_real
+CMD ["bash"]

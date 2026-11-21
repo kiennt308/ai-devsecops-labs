@@ -1,0 +1,10 @@
+apiVersion: orderflow.devsecops/v1
+kind: RemediationPipelineSpec
+metadata:
+  name: legacy-blind-automerge-bot
+  owner: legacy-auto-bot
+spec:
+  sandbox_regression_required: false
+  allow_major_version_jump: true
+  direct_merge_without_hitl: true
+  sast_gate: "none"

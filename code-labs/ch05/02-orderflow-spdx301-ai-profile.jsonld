@@ -1,0 +1,55 @@
+{
+  "@context": "https://spdx.org/rdf/3.0.1/spdx-context.jsonld",
+  "@graph": [
+    {
+      "type": "CreationInfo",
+      "@id": "_:creationInfo1",
+      "specVersion": "3.0.1",
+      "created": "2026-11-20T00:00:00Z",
+      "createdBy": ["urn:spdx:agent-kien-nguyen"],
+      "profile": ["core", "software", "ai", "dataset"]
+    },
+    {
+      "type": "Person",
+      "spdxId": "urn:spdx:agent-kien-nguyen",
+      "creationInfo": "_:creationInfo1",
+      "name": "Kien Nguyen"
+    },
+    {
+      "type": "SpdxDocument",
+      "spdxId": "urn:spdx:doc-orderflow-ai-301",
+      "creationInfo": "_:creationInfo1",
+      "name": "orderflow-ai-spdx301",
+      "rootElement": ["urn:spdx:ai-orderflow-triage"]
+    },
+    {
+      "type": "ai_AIPackage",
+      "spdxId": "urn:spdx:ai-orderflow-triage",
+      "creationInfo": "_:creationInfo1",
+      "name": "orderflow-triage-7b-awq",
+      "packageVersion": "1.0.0",
+      "typeOfModel": ["LLM", "transformer"],
+      "informationAboutTraining":
+        "SFT on Apache-2.0 sanitized CVE & OpenVEX triage traces",
+      "downloadLocation":
+        "https://github.com/kiennt308/ai-devsecops-labs"
+    },
+    {
+      "type": "dataset_DatasetPackage",
+      "spdxId": "urn:spdx:dataset-orderflow-cve",
+      "creationInfo": "_:creationInfo1",
+      "name": "orderflow-cve-triage-corpus",
+      "packageVersion": "2026.11.20",
+      "datasetType": ["text", "structured"],
+      "declaredLicense": "Apache-2.0"
+    },
+    {
+      "type": "Relationship",
+      "spdxId": "urn:spdx:rel-trained-on",
+      "creationInfo": "_:creationInfo1",
+      "relationshipType": "trainedOn",
+      "from": "urn:spdx:ai-orderflow-triage",
+      "to": ["urn:spdx:dataset-orderflow-cve"]
+    }
+  ]
+}

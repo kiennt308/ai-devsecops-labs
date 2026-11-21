@@ -1,0 +1,35 @@
+apiVersion: orderflow.devsecops/v1
+kind: OrderFlowDevSecOpsBaseline
+metadata:
+  name: legacy-cvss-slsa02-probe-anti-pattern
+  owner: legacy-manual-sec
+spec:
+  triage:
+    use_epss_v4: false
+    cisa_kev_floor: false
+    reachability_analysis: false
+    cvss_only_blocking: true
+  remediation:
+    sandbox_regression_required: false
+    direct_automerge: true
+    allow_major_version_jump: true
+  supply_chain:
+    slsa_version: "0.2"
+    slsa_level: 1
+    dsse_in_toto: false
+    cosign_version: "v2.0.0"
+    cosign_bundle_default: false
+    hardened_minimal_base: false
+    aibom_enabled: false
+  admission:
+    engine: "kyverno"
+    api_group: "kyverno.io/v1"
+    legacy_cluster_policy_enabled: true
+  runtime_ebpf:
+    falco_driver: "legacy_ebpf_probe"
+    legacy_probe_removed: false
+    tetragon_grpc_socket: "tcp://0.0.0.0:54321"
+  secops:
+    ocsf_schema_version: "none"
+    enabled_classes: []
+    purple_team_drills_required: false

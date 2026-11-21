@@ -1,0 +1,13 @@
+apiVersion: orderflow.devsecops/v1
+kind: RemediationPipelineSpec
+metadata:
+  name: orderflow-sandboxed-remediation
+  owner: orderflow-appsec-platform
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  sandbox_regression_required: true
+  allow_major_version_jump: false
+  direct_merge_without_hitl: false
+  sast_gate: "semgrep-1.170+"
+  require_reproducer_fail_first: true

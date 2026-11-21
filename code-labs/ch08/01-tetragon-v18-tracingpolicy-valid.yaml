@@ -1,0 +1,60 @@
+# OrderFlow Cilium Tetragon v1.8.0 TracingPolicyNamespaced
+# CEL XValidation ready: matchCmdArgs index <= 31, max 5 filters/selector,
+# and Unix-domain socket enforced before inline Sigkill.
+# Author: Kien Nguyen | https://github.com/kiennt308/ai-devsecops-labs
+
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicyNamespaced
+metadata:
+  name: orderflow-prevent-shell-shadow
+  namespace: orderflow-prod
+  grpc_endpoint: "unix:///var/run/tetragon/tetragon.sock"
+  annotations:
+    devsecops.orderflow.io/author: "Kien Nguyen"
+    devsecops.orderflow.io/cel-xvalidation: "verified-v1.8.0"
+spec:
+  podSelector:
+    matchLabels:
+      app: orderflow-api
+  kprobes:
+    - call: "security_file_open"
+      syscall: false
+      args:
+        - index: 0
+          type: "file"
+      selectors:
+        - matchArgs:
+            - index: 0
+              operator: "Equal"
+              values:
+                - "/etc/shadow"
+                - "/etc/gshadow"
+          matchActions:
+            - action: "Sigkill"
+    - call: "__x64_sys_execve"
+      syscall: true
+      args:
+        - index: 0
+          type: "string"
+      selectors:
+        - matchArgs:
+            - index: 0
+              operator: "Prefix"
+              values:
+                - "/tmp/"
+                - "/dev/shm/"
+          matchActions:
+            - action: "Sigkill"
+        - matchBinaries:
+            - operator: "In"
+              values:
+                - "/bin/sh"
+                - "/bin/bash"
+                - "/usr/bin/sh"
+          matchCmdArgs:
+            - index: 0
+              operator: "Equal"
+              values:
+                - "-c"
+          matchActions:
+            - action: "Sigkill"

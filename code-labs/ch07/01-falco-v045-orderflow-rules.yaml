@@ -1,0 +1,79 @@
+# OrderFlow Falco v0.45.2 Modern CO-RE eBPF Custom Rules
+# Author: Kien Nguyen | https://github.com/kiennt308/ai-devsecops-labs
+
+- list: orderflow_ns
+  items:
+    - orderflow-prod
+    - orderflow-payments
+
+- list: orderflow_trusted_bins
+  items:
+    - /usr/local/bin/uvicorn
+    - /app/orderflow-api
+
+- list: orderflow_shells
+  items:
+    - sh
+    - bash
+    - dash
+    - ash
+    - zsh
+
+- macro: orderflow_ns_scoped
+  condition: k8s.ns.name = anyof (orderflow_ns)
+
+- macro: orderflow_spawned
+  condition: evt.type = anyof (execve, execveat) and evt.dir = <
+
+- macro: orderflow_open_read
+  condition: >
+    evt.type = anyof (open, openat, openat2) and
+    evt.is_open_read = true and evt.dir = <
+
+- rule: OrderFlow Sensitive Shadow Read
+  desc: Detect unauthorized read of Linux shadow files in OrderFlow
+  condition: >
+    orderflow_open_read and orderflow_ns_scoped and
+    fd.name = anyof (/etc/shadow, /etc/gshadow) and
+    proc.exepath != allof (orderflow_trusted_bins)
+  output: >
+    Sensitive shadow read in OrderFlow (ns=%k8s.ns.name
+    proc=%proc.name exe=%proc.exepath file=%fd.name)
+  priority: CRITICAL
+  tags:
+    - container
+    - mitre_credential_access
+    - TA0006
+    - T1003
+
+- rule: OrderFlow Temp Binary Exec
+  desc: Detect execution of binaries staged inside temp paths
+  condition: >
+    orderflow_spawned and orderflow_ns_scoped and
+    proc.exepath startswith anyof (/tmp/, /dev/shm/, /var/tmp/) and
+    proc.exepath != allof (orderflow_trusted_bins)
+  output: >
+    Temp binary execution in OrderFlow (ns=%k8s.ns.name
+    proc=%proc.name exe=%proc.exepath cmd=%proc.cmdline)
+  priority: CRITICAL
+  tags:
+    - container
+    - mitre_execution
+    - TA0002
+    - T1059
+
+- rule: OrderFlow Shell Spawn From Microservice
+  desc: Detect interactive shell spawn inside distroless OrderFlow pod
+  condition: >
+    orderflow_spawned and orderflow_ns_scoped and
+    proc.name = oneof (orderflow_shells) and
+    proc.exepath != allof (orderflow_trusted_bins)
+  output: >
+    Shell spawned in OrderFlow microservice (ns=%k8s.ns.name
+    proc=%proc.name parent=%proc.pname cmd=%proc.cmdline)
+  priority: WARNING
+  tags:
+    - container
+    - mitre_execution
+    - TA0002
+    - T1059

@@ -1,0 +1,141 @@
+{
+  "dataset_id": "orderflow-ocsf-unified-09",
+  "author": "Kien Nguyen",
+  "repository": "https://github.com/kiennt308/ai-devsecops-labs",
+  "ocsf_version": "1.6.0",
+  "ocsf_upstream_target": "1.9.0",
+  "incident_id": "inc-orderflow-09",
+  "events": [
+    {
+      "event_uid": "evt-ocsf-1007-01",
+      "class_uid": 1007,
+      "class_name": "Process Activity",
+      "category_uid": 1,
+      "activity_id": 1,
+      "activity_name": "Launch",
+      "severity_id": 5,
+      "severity": "Critical",
+      "time": "2026-11-20T05:10:00Z",
+      "incident_id": "inc-orderflow-09",
+      "service": "orderflow-api",
+      "namespace": "orderflow-prod",
+      "container_id": "ctr-orderflow-api-9f4a",
+      "image_digest": "sha256:9d1a4b8c7e2f0a1122334455",
+      "role_arn": "arn:aws:iam::123456789012:role/orderflow-api",
+      "metadata": {
+        "version": "1.6.0",
+        "product": {
+          "name": "Falco v0.45.2 + Tetragon v1.8.0",
+          "vendor_name": "CNCF"
+        }
+      },
+      "process": {
+        "pid": 4821,
+        "name": "sh",
+        "cmd_line": "sh -c cat /etc/shadow",
+        "file": {
+          "path": "/bin/sh"
+        }
+      },
+      "prevention": {
+        "tetragon_sigkill": true,
+        "post_syscall_bytes": 0
+      }
+    },
+    {
+      "event_uid": "evt-ocsf-2002-01",
+      "class_uid": 2002,
+      "class_name": "Vulnerability Finding",
+      "category_uid": 2,
+      "activity_id": 1,
+      "activity_name": "Create",
+      "severity_id": 5,
+      "severity": "Critical",
+      "time": "2026-11-20T05:05:12Z",
+      "incident_id": "inc-orderflow-09",
+      "service": "orderflow-api",
+      "namespace": "orderflow-prod",
+      "container_id": "ctr-orderflow-api-9f4a",
+      "image_digest": "sha256:9d1a4b8c7e2f0a1122334455",
+      "role_arn": "arn:aws:iam::123456789012:role/orderflow-api",
+      "metadata": {
+        "version": "1.6.0",
+        "product": {
+          "name": "Trivy v0.76.2 + EPSS v4",
+          "vendor_name": "Aqua Security"
+        }
+      },
+      "vulnerabilities": [
+        {
+          "cve_id": "CVE-2026-4102",
+          "epss_score": 0.87,
+          "epss_version": "v4",
+          "cisa_kev": true,
+          "reachable": true,
+          "purl": "pkg:pypi/orderflow-eval@1.4.2"
+        }
+      ]
+    },
+    {
+      "event_uid": "evt-ocsf-2003-01",
+      "class_uid": 2003,
+      "class_name": "Compliance Finding",
+      "category_uid": 2,
+      "activity_id": 1,
+      "activity_name": "Create",
+      "severity_id": 4,
+      "severity": "High",
+      "time": "2026-11-20T05:06:30Z",
+      "incident_id": "inc-orderflow-09",
+      "service": "orderflow-api",
+      "namespace": "orderflow-prod",
+      "container_id": "ctr-orderflow-api-9f4a",
+      "image_digest": "sha256:9d1a4b8c7e2f0a1122334455",
+      "role_arn": "arn:aws:iam::123456789012:role/orderflow-api",
+      "metadata": {
+        "version": "1.6.0",
+        "product": {
+          "name": "Prowler v5.34+ + Checkov",
+          "vendor_name": "Prowler"
+        }
+      },
+      "compliance": {
+        "control": "CKV_AWS_393",
+        "standards": [
+          "CIS Controls v8.1"
+        ],
+        "status": "FAIL",
+        "detail": "Wildcard GitHub OIDC sub on orderflow-api role"
+      }
+    },
+    {
+      "event_uid": "evt-ocsf-2004-01",
+      "class_uid": 2004,
+      "class_name": "Detection Finding",
+      "category_uid": 2,
+      "activity_id": 1,
+      "activity_name": "Create",
+      "severity_id": 5,
+      "severity": "Critical",
+      "time": "2026-11-20T05:10:01Z",
+      "incident_id": "inc-orderflow-09",
+      "service": "orderflow-api",
+      "namespace": "orderflow-prod",
+      "container_id": "ctr-orderflow-api-9f4a",
+      "image_digest": "sha256:9d1a4b8c7e2f0a1122334455",
+      "role_arn": "arn:aws:iam::123456789012:role/orderflow-api",
+      "metadata": {
+        "version": "1.6.0",
+        "product": {
+          "name": "Bedrock Guardrails + eBPF",
+          "vendor_name": "OrderFlow SecOps"
+        }
+      },
+      "finding_info": {
+        "uid": "det-vol08-guardrail-09",
+        "title": "Prompt-to-Shell Escape Attempt Correlated",
+        "source_handoff": "vol08-bedrock-guardrails-2004"
+      }
+    }
+  ]
+}

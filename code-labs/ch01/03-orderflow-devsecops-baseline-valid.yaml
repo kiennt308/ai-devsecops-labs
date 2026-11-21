@@ -1,0 +1,51 @@
+apiVersion: orderflow.devsecops/v1
+kind: OrderFlowDevSecOpsBaseline
+metadata:
+  name: orderflow-devsecops-v09-baseline
+  owner: orderflow-appsec-platform
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  triage:
+    use_epss_v4: true
+    cisa_kev_floor: true
+    reachability_analysis: true
+    openvex_version: "0.2.0"
+    cvss_only_blocking: false
+  remediation:
+    sandbox_regression_required: true
+    direct_automerge: false
+    allow_major_version_jump: false
+  supply_chain:
+    slsa_version: "1.2"
+    slsa_track: "build-and-source"
+    slsa_level: 3
+    dsse_in_toto: true
+    cosign_version: "v3.1.4"
+    cosign_bundle_default: true
+    hardened_minimal_base: true
+    aibom_enabled: true
+    aibom_specs:
+      - cyclonedx-1.7
+      - spdx-3.0.1
+  admission:
+    engine: "kyverno"
+    version: "v1.19"
+    api_group: "policies.kyverno.io/v1"
+    legacy_cluster_policy_enabled: false
+  runtime_ebpf:
+    falco_version: "v0.45.2"
+    falco_driver: "modern_ebpf"
+    legacy_probe_removed: true
+    tetragon_version: "v1.8.0"
+    tetragon_grpc_socket: "unix:///var/run/tetragon/tetragon.sock"
+    inline_sigkill_scoped: true
+  secops:
+    ocsf_schema_version: "1.6"
+    upstream_ocsf_target: "1.9.0"
+    enabled_classes:
+      - 1007
+      - 2002
+      - 2003
+      - 2004
+    purple_team_drills_required: true

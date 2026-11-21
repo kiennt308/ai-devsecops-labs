@@ -1,0 +1,13 @@
+apiVersion: orderflow.devsecops/v1
+kind: CloudPostureRemediationPolicy
+metadata:
+  name: orderflow-clickops-wildcard-oidc-negative
+  owner: "Kien Nguyen"
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  patch_live_aws_clickops: true
+  source_iac_repo: "orderflow-infra-tf"
+  oidc_trust_scope: "*"
+  key_rotation_days: 365
+  cis_benchmark: "v8.1"

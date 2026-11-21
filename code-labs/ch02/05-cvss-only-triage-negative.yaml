@@ -1,0 +1,10 @@
+apiVersion: orderflow.devsecops/v1
+kind: VulnerabilityTriagePolicy
+metadata:
+  name: legacy-cvss-only-triage-policy
+  owner: legacy-manual-sec
+spec:
+  cvss_only_blocking: true
+  cisa_kev_mandatory_floor: false
+  epss_version: "v2"
+  vex_spec: "none"

@@ -1,0 +1,144 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:7c3f8a12-4b5e-4d19-9a0b-2c3d4e5f6001",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-20T00:00:00Z",
+    "authors": [
+      {"name": "Kien Nguyen"}
+    ],
+    "component": {
+      "type": "application",
+      "bom-ref": "orderflow-ai-service",
+      "name": "orderflow-ai-service",
+      "version": "1.8.0"
+    },
+    "properties": [
+      {
+        "name": "orderflow.repository",
+        "value": "https://github.com/kiennt308/ai-devsecops-labs"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "machine-learning-model",
+      "bom-ref": "model-orderflow-triage",
+      "name": "orderflow-triage-7b-awq",
+      "version": "1.0.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content":
+      "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+        }
+      ],
+      "modelCard": {
+        "modelParameters": {
+          "architectureFamily": "Llama",
+          "modelArchitecture": "Transformer",
+          "task": "cve-triage"
+        },
+        "quantitativeAnalysis": {
+          "performanceMetrics": [
+            {"type": "quantization", "value": "AWQ-4bit"}
+          ]
+        }
+      },
+      "properties": [
+        {"name": "ai.model.weights.format", "value": "safetensors"},
+        {"name": "ai.model.weights.file", "value": "model.safetensors"},
+        {"name": "ai.model.quantization", "value": "AWQ-4bit"}
+      ]
+    },
+    {
+      "type": "data",
+      "bom-ref": "data-system-prompt",
+      "name": "orderflow-triage-system-prompt",
+      "version": "2026.11.20",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content":
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "data": [
+        {
+          "type": "configuration",
+          "name": "system-prompt",
+          "contents": {
+            "attachment": {
+              "contentType": "text/plain",
+              "encoding": "base64",
+              "content": "b3JkZXJmbG93LXRyaWFnZS1zeXN0ZW0tcHJvbXB0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "app-mcp-server",
+      "name": "orderflow-secops-mcp",
+      "version": "1.4.2",
+      "purl": "pkg:oci/orderflow-mcp@sha256:9f86d081884c7d65",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content":
+      "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        }
+      ],
+      "properties": [
+        {"name": "mcp.protocol.version", "value": "2026-07-28"}
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg-cryptography",
+      "name": "cryptography",
+      "version": "50.0.1",
+      "purl": "pkg:pypi/cryptography@50.0.1",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content":
+      "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg-pyyaml",
+      "name": "pyyaml",
+      "version": "6.0.3",
+      "purl": "pkg:pypi/pyyaml@6.0.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content":
+      "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "orderflow-ai-service",
+      "dependsOn": [
+        "model-orderflow-triage",
+        "data-system-prompt",
+        "app-mcp-server",
+        "pkg-cryptography",
+        "pkg-pyyaml"
+      ]
+    },
+    {"ref": "model-orderflow-triage", "dependsOn": []},
+    {"ref": "data-system-prompt", "dependsOn": []},
+    {"ref": "app-mcp-server", "dependsOn": []},
+    {"ref": "pkg-cryptography", "dependsOn": []},
+    {"ref": "pkg-pyyaml", "dependsOn": []}
+  ]
+}

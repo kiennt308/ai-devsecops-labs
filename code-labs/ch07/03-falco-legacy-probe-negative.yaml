@@ -1,0 +1,13 @@
+apiVersion: orderflow.devsecops/v1
+kind: FalcoRuntimeConfig
+metadata:
+  name: falco-legacy-probe-negative
+  owner: "Kien Nguyen"
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  falco_version: "v0.36.0"
+  engine:
+    kind: "ebpf"
+  legacy_grpc_server_enabled: true
+  dry_run_validated: false

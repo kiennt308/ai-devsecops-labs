@@ -1,0 +1,21 @@
+apiVersion: orderflow.devsecops/v1
+kind: SupplyChainProvenancePolicy
+metadata:
+  name: orderflow-slsa-v12-cosign-v3-policy
+  owner: orderflow-supply-chain-sec
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  slsa:
+    spec_version: "1.2"
+    track: "build-and-source"
+    build_level: 3
+    source_level: 2
+    in_toto_v1: true
+    dsse_envelope: true
+  cosign:
+    version: "v3.1.4"
+    use_bundle_format: true
+    trusted_root_verified: true
+  base_image:
+    minimal_hardened: true

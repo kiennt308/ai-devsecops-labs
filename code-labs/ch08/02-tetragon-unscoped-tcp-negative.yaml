@@ -1,0 +1,23 @@
+# Deliberately Invalid Tetragon Policy (Triggers all 3 Ch08 Rego rules)
+# Author: Kien Nguyen | https://github.com/kiennt308/ai-devsecops-labs
+
+apiVersion: apps/v1
+kind: TracingPolicyNamespaced
+metadata:
+  name: orderflow-unscoped-tcp-negative
+  grpc_endpoint: "tcp://0.0.0.0:54321"
+spec:
+  kprobes:
+    - call: "__x64_sys_execve"
+      syscall: true
+      args:
+        - index: 0
+          type: "string"
+      selectors:
+        - matchArgs:
+            - index: 0
+              operator: "Prefix"
+              values:
+                - "/tmp/"
+          matchActions:
+            - action: "Sigkill"

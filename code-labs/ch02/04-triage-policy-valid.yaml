@@ -1,0 +1,14 @@
+apiVersion: orderflow.devsecops/v1
+kind: VulnerabilityTriagePolicy
+metadata:
+  name: orderflow-epss-kev-openvex-triage
+  owner: orderflow-appsec-platform
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  cvss_only_blocking: false
+  cisa_kev_mandatory_floor: true
+  epss_version: "v4"
+  epss_threshold: 0.5
+  reachability_required: true
+  vex_spec: "openvex-0.2.0"

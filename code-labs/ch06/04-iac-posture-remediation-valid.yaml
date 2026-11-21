@@ -1,0 +1,19 @@
+apiVersion: orderflow.devsecops/v1
+kind: CloudPostureRemediationPolicy
+metadata:
+  name: orderflow-iac-posture-remediation-valid
+  owner: "Kien Nguyen"
+spec:
+  author: "Kien Nguyen"
+  repository: "https://github.com/kiennt308/ai-devsecops-labs"
+  patch_live_aws_clickops: false
+  source_iac_repo: "orderflow-infra-tf"
+  oidc_trust_scope: "repo:kiennt308/orderflow:ref:refs/heads/main"
+  key_rotation_days: 90
+  scanners:
+    - "checkov-3.2.532+"
+    - "trivy-0.76.2"
+    - "cfn-guard-3.2.1"
+    - "prowler-5.34+"
+  cis_benchmark: "v8.1"
+  hitl_pr_required: true

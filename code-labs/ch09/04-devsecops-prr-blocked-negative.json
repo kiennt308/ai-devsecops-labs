@@ -1,0 +1,18 @@
+{
+  "apiVersion": "orderflow.devsecops/v1",
+  "kind": "DevSecOpsPRRAssessment",
+  "metadata": {
+    "name": "orderflow-devsecops-prr-blocked-negative",
+    "owner": "Kien Nguyen"
+  },
+  "spec": {
+    "author": "Kien Nguyen",
+    "repository": "https://github.com/kiennt308/ai-devsecops-labs",
+    "score_passed": 13,
+    "total_checks": 20,
+    "ocsf_classes": [
+      2004
+    ],
+    "purple_team_validated": false
+  }
+}
